@@ -1,6 +1,6 @@
 {
   "name": "@miconvert/ofd-to-pdf",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "High-performance OFD to PDF converter for Node.js | Node.js OFD 转 PDF 高性能转换器",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
