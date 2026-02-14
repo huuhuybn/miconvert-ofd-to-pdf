@@ -1,0 +1,28 @@
+﻿node.exe : npm error code 
+ENEEDAUTH
+At C:\Program 
+Files\nodejs\npm.ps1:29 
+char:3
++   & $NODE_EXE $NPM_CLI_JS 
+$args
++   ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo          
+    : NotSpecified: (npm e  
+  rror code ENEEDAUTH:Str   
+ ing) [], RemoteExceptio    
+n
+    + FullyQualifiedErrorId 
+    : NativeCommandError
+ 
+npm error need auth This 
+command requires you to be 
+logged in.
+npm error need auth You 
+need to authorize this 
+machine using `npm adduser`
+npm error A complete log of 
+this run can be found in: C:
+\Users\huuhu\AppData\Local\n
+pm-cache\_logs\2026-02-14T08
+_41_04_269Z-debug-0.log

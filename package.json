@@ -1,0 +1,69 @@
+{
+  "name": "@miconvert/ofd-to-pdf",
+  "version": "0.1.2",
+  "description": "High-performance OFD to PDF converter for Node.js | Node.js OFD 转 PDF 高性能转换器",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "ofd",
+    "ofd-to-pdf",
+    "pdf",
+    "converter",
+    "china-document",
+    "电子发票",
+    "e-invoice",
+    "document-converter",
+    "miconvert",
+    "antigravity",
+    "GB/T-33190"
+  ],
+  "author": "Antigravity <dev@miconvert.com>",
+  "license": "Apache-2.0",
+  "homepage": "https://miconvert.com/en/ofd-to-pdf",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AntGravity/ofd-to-pdf"
+  },
+  "bugs": {
+    "url": "https://github.com/AntGravity/ofd-to-pdf/issues"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^4.5.0",
+    "jszip": "^3.10.1",
+    "pdf-lib": "^1.17.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.3",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0",
+    "vitest": "^2.0.0"
+  }
+}
