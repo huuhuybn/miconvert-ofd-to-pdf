@@ -7,7 +7,7 @@
   <p align="center">
     <a href="https://www.npmjs.com/package/@miconvert/ofd-to-pdf"><img src="https://img.shields.io/npm/v/@miconvert/ofd-to-pdf.svg?style=flat-square&color=blue" alt="npm version"></a>
     <a href="https://www.npmjs.com/package/@miconvert/ofd-to-pdf"><img src="https://img.shields.io/npm/dm/@miconvert/ofd-to-pdf.svg?style=flat-square&color=green" alt="npm downloads"></a>
-    <a href="https://github.com/AntGravity/ofd-to-pdf/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-orange.svg?style=flat-square" alt="license"></a>
+    <a href="https://github.com/huuhuybn/miconvert-ofd-to-pdf/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-orange.svg?style=flat-square" alt="license"></a>
     <a href="https://miconvert.com"><img src="https://img.shields.io/badge/by-Antigravity-purple.svg?style=flat-square" alt="by Antigravity"></a>
   </p>
 </p>
