@@ -1,6 +1,6 @@
 {
   "name": "@miconvert/ofd-to-pdf",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "High-performance OFD to PDF converter for Node.js | Node.js OFD 转 PDF 高性能转换器",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -47,10 +47,10 @@
   "homepage": "https://miconvert.com/en/ofd-to-pdf",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AntGravity/ofd-to-pdf"
+    "url": "https://github.com/huuhuybn/miconvert-ofd-to-pdf"
   },
   "bugs": {
-    "url": "https://github.com/AntGravity/ofd-to-pdf/issues"
+    "url": "https://github.com/huuhuybn/miconvert-ofd-to-pdf/issues"
   },
   "engines": {
     "node": ">=16.0.0"

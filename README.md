@@ -255,7 +255,7 @@ OFD（开放版式文档）是中华人民共和国国家标准（GB/T 33190-201
 欢迎贡献代码！请随时提交 Pull Request 或 Issue。
 
 如有问题或建议，请通过以下方式联系：
-- GitHub Issues: [提交问题](https://github.com/AntGravity/ofd-to-pdf/issues)
+- GitHub Issues: [提交问题](https://github.com/huuhuybn/miconvert-ofd-to-pdf/issues)
 - 官网: [miconvert.com](https://miconvert.com)
 
 ## 许可证

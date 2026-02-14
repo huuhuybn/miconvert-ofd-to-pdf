@@ -74,7 +74,7 @@ export async function renderToPdf(
     // Set PDF metadata
     pdfDoc.setTitle('Converted from OFD');
     pdfDoc.setProducer('ofd-to-pdf by Antigravity | miconvert.com');
-    pdfDoc.setCreator('ofd-to-pdf (https://github.com/AntGravity/ofd-to-pdf)');
+    pdfDoc.setCreator('ofd-to-pdf (https://github.com/huuhuybn/miconvert-ofd-to-pdf)');
 
     // Pre-load fonts (map OFD font IDs → PDF fonts)
     const fontCache = new Map<string, PDFFont>();
