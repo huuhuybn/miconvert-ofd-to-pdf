@@ -1,19 +1,19 @@
 {
   "name": "@miconvert/ofd-to-pdf",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "High-performance OFD to PDF converter for Node.js | Node.js OFD 转 PDF 高性能转换器",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
       }
     }
   },
@@ -56,6 +56,7 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
     "fast-xml-parser": "^4.5.0",
     "jszip": "^3.10.1",
     "pdf-lib": "^1.17.1"

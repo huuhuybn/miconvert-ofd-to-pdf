@@ -72,6 +72,7 @@ export interface OfdTextObject {
     italic?: boolean;
     ctm?: CT_Matrix;       // Coordinate transformation matrix
     textCodes: TextCode[];
+    alpha?: number;        // Opacity 0-255, default 255
 }
 
 // ─── Path Object ────────────────────────────────────────────────────
@@ -98,6 +99,12 @@ export interface OfdPathObject {
     ctm?: CT_Matrix;
     fill?: boolean;
     stroke?: boolean;
+    dashPattern?: number[];     // [unitsOn, unitsOff]
+    dashOffset?: number;        // Phase offset for dash pattern
+    join?: 'miter' | 'round' | 'bevel';  // Line join style
+    cap?: 'butt' | 'round' | 'square';   // Line cap style
+    miterLimit?: number;        // Miter limit for join
+    alpha?: number;             // Opacity 0-255, default 255
 }
 
 // ─── Image Object ───────────────────────────────────────────────────
@@ -108,6 +115,7 @@ export interface OfdImageObject {
     boundary: CT_Box;
     resourceId: string;     // Reference to image resource
     ctm?: CT_Matrix;
+    alpha?: number;         // Opacity 0-255, default 255
 }
 
 // ─── Page Layer & Page ──────────────────────────────────────────────
@@ -117,6 +125,7 @@ export type OfdObject = OfdTextObject | OfdPathObject | OfdImageObject;
 export interface OfdLayer {
     id?: string;
     type?: string;           // e.g. "Body", "Foreground", "Background"
+    drawParamRef?: string;   // DrawParam reference for default colors
     objects: OfdObject[];
 }
 
@@ -125,6 +134,7 @@ export interface OfdPage {
     index: number;
     area?: CT_Box;           // Page area (defaults to document PhysicalBox)
     layers: OfdLayer[];
+    templateId?: string;     // Reference to template page (background)
 }
 
 // ─── Image Resource ─────────────────────────────────────────────────
@@ -165,6 +175,13 @@ export interface ConvertOptions {
 
     /** Suppress the startup branding console message. Default: false */
     silent?: boolean;
+
+    /**
+     * Path to a directory containing TTF/OTF font files for CJK rendering.
+     * If provided, fonts matching OFD font names will be loaded from here.
+     * Commonly used fonts: SimSun.ttf, SimHei.ttf, KaiTi.ttf, NotoSansSC-Regular.ttf
+     */
+    fontDir?: string;
 }
 
 // ─── Virtual File System (extracted OFD archive) ────────────────────

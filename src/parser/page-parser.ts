@@ -238,6 +238,7 @@ function parseTextObject(obj: any): OfdTextObject | null {
         italic: obj?.['@_Italic'] === 'true',
         ctm: parseCTM(obj?.['@_CTM']),
         textCodes: parseTextCodes(obj),
+        alpha: obj?.['@_Alpha'] != null ? Number(obj['@_Alpha']) : undefined,
     };
 }
 
@@ -256,6 +257,27 @@ function parsePathObject(obj: any): OfdPathObject | null {
     const hasFill = obj?.['@_Fill'] !== 'false' && fillColorNode !== undefined;
     const hasStroke = obj?.['@_Stroke'] !== 'false';
 
+    // Parse dash pattern "unitsOn unitsOff"
+    const dashPatternStr = obj?.['@_DashPattern'];
+    let dashPattern: number[] | undefined;
+    if (dashPatternStr) {
+        dashPattern = String(dashPatternStr).trim().split(/\s+/).map(Number);
+    }
+
+    // Parse join style
+    const joinStr = obj?.['@_Join'];
+    let join: 'miter' | 'round' | 'bevel' | undefined;
+    if (joinStr === 'Round') join = 'round';
+    else if (joinStr === 'Bevel') join = 'bevel';
+    else if (joinStr === 'Miter') join = 'miter';
+
+    // Parse cap style
+    const capStr = obj?.['@_Cap'];
+    let cap: 'butt' | 'round' | 'square' | undefined;
+    if (capStr === 'Round') cap = 'round';
+    else if (capStr === 'Square') cap = 'square';
+    else if (capStr === 'Butt') cap = 'butt';
+
     return {
         type: 'path',
         id,
@@ -268,6 +290,12 @@ function parsePathObject(obj: any): OfdPathObject | null {
         ctm: parseCTM(obj?.['@_CTM']),
         fill: hasFill,
         stroke: hasStroke,
+        dashPattern,
+        dashOffset: obj?.['@_DashOffset'] != null ? Number(obj['@_DashOffset']) : undefined,
+        join,
+        cap,
+        miterLimit: obj?.['@_MiterLimit'] != null ? Number(obj['@_MiterLimit']) : undefined,
+        alpha: obj?.['@_Alpha'] != null ? Number(obj['@_Alpha']) : undefined,
     };
 }
 
@@ -282,6 +310,7 @@ function parseImageObject(obj: any): OfdImageObject | null {
         boundary,
         resourceId,
         ctm: parseCTM(obj?.['@_CTM']),
+        alpha: obj?.['@_Alpha'] != null ? Number(obj['@_Alpha']) : undefined,
     };
 }
 
@@ -321,6 +350,7 @@ function parseLayer(layerNode: any): OfdLayer {
     return {
         id: layerNode?.['@_ID'],
         type: layerNode?.['@_Type'],
+        drawParamRef: layerNode?.['@_DrawParam'],
         objects,
     };
 }
@@ -336,7 +366,12 @@ export function parsePage(
     pageIndex: number,
     defaultArea: CT_Box,
 ): OfdPage {
-    const pageRoot = getVal(pageXml, 'Page') ?? pageXml;
+    let pageRoot = getVal(pageXml, 'Page') ?? pageXml;
+
+    // Handle case where ofd:Page is parsed as an array (isArray config)
+    if (Array.isArray(pageRoot)) {
+        pageRoot = pageRoot[0] ?? pageXml;
+    }
 
     // Parse page area (may override document default)
     const pageAreaNode = getVal(pageRoot, 'Area');
@@ -347,6 +382,10 @@ export function parsePage(
             area = parseBox(typeof physicalBox === 'string' ? physicalBox : physicalBox?.['#text']);
         }
     }
+
+    // Extract template reference (for later merging)
+    const templateNode = getVal(pageRoot, 'Template');
+    const templateId = templateNode?.['@_TemplateID'];
 
     // Parse content layers
     const layers: OfdLayer[] = [];
@@ -372,5 +411,7 @@ export function parsePage(
         index: pageIndex,
         area,
         layers,
+        templateId,
     };
 }
+

@@ -182,7 +182,28 @@ export async function parseOfdXml(archive: OfdArchive): Promise<OfdDocument> {
         }
     }
 
-    // Step 5: Parse pages
+    // Step 5: Parse template pages
+    const templateMap = new Map<string, OfdPage>();
+    const templatePageNodes = ensureArray(getXmlVal(commonData, 'TemplatePage'));
+    for (const tplNode of templatePageNodes) {
+        const tplId = tplNode?.['@_ID'];
+        const tplBaseLoc = tplNode?.['@_BaseLoc'];
+        if (!tplId || !tplBaseLoc) continue;
+
+        const tplPath = resolvePath(docPath, tplBaseLoc);
+        const tplContent = readTextFile(archive, tplPath);
+        if (!tplContent) continue;
+
+        const parsedTpl = parsePage(
+            xmlParser.parse(tplContent),
+            tplId,
+            -1, // Template pages don't need an index
+            physicalBox,
+        );
+        templateMap.set(tplId, parsedTpl);
+    }
+
+    // Step 6: Parse pages
     const pages: OfdPage[] = [];
     const pagesNode = getXmlVal(document, 'Pages');
     const pageRefs = ensureArray(getXmlVal(pagesNode, 'Page'));
@@ -205,6 +226,13 @@ export async function parseOfdXml(archive: OfdArchive): Promise<OfdDocument> {
             i,
             physicalBox,
         );
+
+        // Merge template layers if page references a template
+        if (parsedPage.templateId && templateMap.has(parsedPage.templateId)) {
+            const tpl = templateMap.get(parsedPage.templateId)!;
+            // Prepend template layers (background) before page layers
+            parsedPage.layers = [...tpl.layers, ...parsedPage.layers];
+        }
 
         pages.push(parsedPage);
     }
